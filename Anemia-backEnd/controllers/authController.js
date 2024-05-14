@@ -373,7 +373,7 @@ exports.resetPassword = (req, res) => {
                                 "success_msg",
                                 "Password reset successfully!",
                             );
-                            res.redirect("/auth/login");
+                            res.redirect("/auth/successReset");
                         }
                     },
                 );

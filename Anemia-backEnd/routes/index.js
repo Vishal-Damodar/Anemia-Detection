@@ -116,5 +116,7 @@ router.get("/doctor_login", ensureAuthenticated, async (req, res) => {
 });
 
 
+router.get("/successReset", (req, res) => res.render("successReset"));
+
 
 module.exports = router;
