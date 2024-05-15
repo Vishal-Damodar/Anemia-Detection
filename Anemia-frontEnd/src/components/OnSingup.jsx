@@ -7,6 +7,7 @@ import "react-phone-input-2/lib/style.css";
 import { auth } from "../../firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { toast, Toaster } from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 import React from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -23,12 +24,17 @@ const App = () => {
 
   function onCaptchVerify() {
     if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        size: 'invisible',
-        callback: () => {
-            console.log('recaptcha resolved..')
-        }
-    },auth);
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            onSignup();
+          },
+          "expired-callback": () => {},
+        },
+        auth
+      );
     }
   }
 
@@ -48,7 +54,6 @@ const App = () => {
         window.confirmationResult = confirmationResult;
         setLoading(false);
         setShowOTP(true);
-        console.log("otp sent succesfully");
         toast.success("OTP sended successfully!");
       })
       .catch((error) => {

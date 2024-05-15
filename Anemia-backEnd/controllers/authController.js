@@ -239,10 +239,12 @@ exports.forgotPassword = (req, res) => {
                     expiresIn: "30m",
                 });
                 const CLIENT_URL = "http://" + req.headers.host;
+                
                 const output = `
-                <h2>Please click on below link to reset your account password</h2>
-                <p>${CLIENT_URL}/auth/forgot/${token}</p>
-                <p><b>NOTE: </b> The activation link expires in 30 minutes.</p>
+                <center><h1>Reset Password</h1></center>
+                <p>Please click on below link to reset your account password</p>
+                <center><a href="${CLIENT_URL}/auth/forgot/${token}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Reset Password</a></center>
+                <p><b>NOTE: </b> The link expires in 30 minutes.</p>
                 `;
 
                 User.updateOne({ resetLink: token }, (err, success) => {
